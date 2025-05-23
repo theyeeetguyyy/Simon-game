@@ -1,7 +1,9 @@
 /*
 -> Blink a random 4 
--> Add the value to array
--> Let user click
+-> Add the value to game array
+-> Let user click,
+if user clicks on a value and it is okay, then okay continue generate next num, and let the clicker run
+
 -> If user clicked that same rand value
     -> gg
     -> break
@@ -40,31 +42,26 @@ function blinkChoice(choice){
     }
 }
 
-function doClick(){
+function classTonum(col){
+    var current;
+    switch(col){
+        case 'r':   
+            current = 1;
+            break;
+        case 'g':
+            current = 2;
+            break;
+        case 'y':
+            current = 3;
+            break;
+        case 'b':
+            current = 4;
+            break;
+    }
+    return current;
 
-    $(".box").click(function (e) { 
-        var clicked = $(this).attr("class")[0];
-        var current;
-        switch(clicked){
-            case 'r':
-                current = 1;
-                break;
-            case 'g':
-                current = 2;
-                break;
-            case 'y':
-                current = 3;
-                break;
-            case 'b':
-                current = 4;
-                break;
-        }
-        blinkChoice(current);
-        console.log(current);
-    });
-    
-            
 }
+
 
 function numChoose(){
         var choice = Math.random();
@@ -73,78 +70,65 @@ function numChoose(){
         console.log("Choice = " + choice);
         return choice;
 }
+var i = 0;
+var count = 0;
+function resetr(){
+    your_arr = [];
+    game_arr = [];
+    i = 0;
+    count = 0;
+    $("body").css("background-color", "red");
+    $("h2").text(count);
+    setTimeout(() => {
+            $("body").css("background-color", "lavender");
+        }, 300);
+    var currMove = numChoose();
+    game_arr.push(currMove);
+    setTimeout(() => {
+        blinkChoice(currMove);
+    }, 500);
+}
 
-
-function gamePlay(game, game_arr){
-    
-    if(game === true){
-        // choose rand num
-        var choice = numChoose();
-        game_arr.push(choice);
-        
-        // blink according to random
-        blinkChoice(choice);        
-        
-
-        // do click
-        // var clicked = doClick();
-
-        var your_arr = [];
-        
-        
-        for(var i=0; i<game_arr.length; i++){
-
-            var current = choice;
-            $(".box").click(function () { 
-                var clicked = $(this).attr("class")[0];
-                switch(clicked){
-                    case 'r':
-                        current = 1;
-                        break;
-                    case 'g':
-                        current = 2;
-                        break;
-                    case 'y':
-                        current = 3;
-                        break;
-                    case 'b':
-                        current = 4;
-                        break;
-                }
-                blinkChoice(current);
-                console.log("Clicked = " + current);
-                your_arr.push(current); 
-                console.log(your_arr);
-                
-            });
+function checker(){
+    if(your_arr[i] === game_arr[i]){
+        i++;
+        if( i === game_arr.length){
+            var currMove = numChoose(); 
+            game_arr.push(currMove);
+            your_arr = [];
+            i = 0;
+            count++;
+            $("h2").text(count);
+            setTimeout(() => {
+                blinkChoice(currMove);
+            }, 500);
 
         }
-        
-        if(your_arr === game_arr){
-            console.log("gg");
-            
-        }
-    
-    
     }
-
-    else if (game === false){
-        console.log("game over");
-        
-        // $(document).keypress(function (e) { 
-        //     game = true;
-        // });
-
-        
+    else{
+        console.log("reest");
+        resetr();
     }
 }
 
+    var game_arr = [];
+    var your_arr = [];
+    
+    var currMove = numChoose();  // this will give a random from 1 to 4
+    blinkChoice(currMove);
+    game_arr.push(currMove);
+    console.log(game_arr);
+    
+    
+    $(".box").click(function (e) { 
+        var clickedNum = classTonum($(this).attr("class")[0]);
+        blinkChoice(clickedNum);
+        your_arr.push(clickedNum);
+        console.log(your_arr);
+        checker();
+    });
 
-var game = true;
-var gamee_arr = [];
-
-gamePlay(game,gamee_arr);
 
 
-// fix the whole code 
+
 
