@@ -1,0 +1,61 @@
+html{
+    background-color: aqua;
+}
+
+.foot {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+}
+
+h1{
+    font-family: "Orbitron", sans-serif;
+    text-align: center;
+    font-size: 50px;
+}
+
+.boxes1 , .boxes2{
+    display: flex;
+    justify-content: center;
+    /* gap: 10px; */
+}
+
+.red{
+    width: 150px;
+    height: 150px;
+    background-color: red;
+    border: 5px solid black ;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+
+
+.green{
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+    margin: 10px;
+    background-color: lime;
+    border: 5px solid black ;
+}
+.yellow{
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+    margin: 10px;
+    background-color: yellow;
+    border: 5px solid black ;
+}
+.blue{
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    border-radius: 20px;
+    background-color: blue;
+    border: 5px solid black ;
+}
+
+.blink{
+    border: 10px solid white;
+}
